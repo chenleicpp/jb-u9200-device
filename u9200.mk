@@ -24,10 +24,10 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 #init
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/init.rc:root/init.rc \
-    $(LOCAL_PATH)/prebuilt/init.viva.rc:root/init.viva.rc \
+    $(LOCAL_PATH)/prebuilt/init.omap4460.rc:root/init.omap4460.rc \
     $(LOCAL_PATH)/prebuilt/init.usb.rc:root/init.usb.rc \
-    $(LOCAL_PATH)/prebuilt/init.viva.usb.rc:root/init.viva.usb.rc \
-    $(LOCAL_PATH)/ueventd.viva.rc:root/ueventd.viva.rc
+    $(LOCAL_PATH)/prebuilt/init.omap4460.usb.rc:root/init.omap4460.usb.rc \
+    $(LOCAL_PATH)/prebuilt/ueventd.omap4460.rc:root/ueventd.omap4460.rc
 
 # vold
 PRODUCT_COPY_FILES += \
