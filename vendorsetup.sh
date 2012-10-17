@@ -14,4 +14,4 @@
 # limitations under the License.
 #
 
-add_lunch_combo full_u9200-eng
+add_lunch_combo cm_u9200-userdebug
