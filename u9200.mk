@@ -36,6 +36,7 @@ PRODUCT_COPY_FILES += \
 #configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/configs/gpsconfig.xml:system/etc/gpsconfig.xml \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 

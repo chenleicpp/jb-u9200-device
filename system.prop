@@ -1,3 +1,4 @@
 #
 # system.prop for u9200
 #
+ro.sf.lcd_density=240
