@@ -58,6 +58,28 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
 	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
 
+#permission
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/prebuilt/permissions/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.faketouch.multitouch.distinct.xml:system/etc/permissions/android.hardware.faketouch.multitouch.distinct.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.faketouch.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.faketouch.multitouch.jazzhand.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.faketouch.xml:system/etc/permissions/android.hardware.faketouch.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.location.xml:system/etc/permissions/android.hardware.location.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.microphone.xml:system/etc/permissions/android.hardware.microphone.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.screen.landscape.xml:system/etc/permissions/android.hardware.screen.landscape.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.screen.portrait.xml:system/etc/permissions/android.hardware.screen.portrait.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/com.ti.fm.fmradioif.xml:system/etc/permissions/com.ti.fm.fmradioif.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/com.google.widevine.software.drm.xml:system/etc/permissions/com.google.widevine.software.drm.xml \
+    $(LOCAL_PATH)/prebuilt/permissions/com.ti.s3d.xml:system/etc/permissions/com.ti.s3d.xml \
+
 # Audio
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \

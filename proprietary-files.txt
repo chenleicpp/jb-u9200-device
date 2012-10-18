@@ -12,6 +12,7 @@ vendor/firmware/fw_bcmdhd.bin
 vendor/firmware/fw_bcmdhd_p2p.bin
 vendor/firmware/fw_bcmdhd_test.bin
 vendor/firmware/ducati-m3.bin
+vendor/firmware/nvram.txt
 vendor/lib/egl/libEGL_POWERVR_SGX540_120.so
 vendor/lib/egl/libEGL_POWERVR_SGX544_112.so
 vendor/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so
