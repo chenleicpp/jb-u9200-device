@@ -2,3 +2,6 @@
 # system.prop for u9200
 #
 ro.sf.lcd_density=240
+
+# default use UMS
+persist.sys.usb.config=mass_storage,adb

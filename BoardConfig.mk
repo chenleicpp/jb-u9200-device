@@ -56,7 +56,10 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 419430400
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Bootanimation
-#TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_PRELOAD := true
+
+# Vold
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/class/android_usb/android0/f_mass_storage/lun/file"
 
 #BOARD_HAS_NO_SELECT_BUTTON := true
 # Use this flag if the board has a ext4 partition larger than 2gb
