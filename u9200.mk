@@ -80,18 +80,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/permissions/com.google.widevine.software.drm.xml:system/etc/permissions/com.google.widevine.software.drm.xml \
     $(LOCAL_PATH)/prebuilt/permissions/com.ti.s3d.xml:system/etc/permissions/com.ti.s3d.xml \
 
-# Audio
-PRODUCT_PACKAGES += \
-	audio.a2dp.default \
-	audio.usb.default
-
-PRODUCT_PACKAGES += \
-    libaudioutils \
-    libaudiohw_legacy
-
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
-
 # Key maps
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/omap4-keypad.kcm:system/usr/keylayout/omap4-keypad.kl \
