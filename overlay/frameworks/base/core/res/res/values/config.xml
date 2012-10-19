@@ -33,10 +33,6 @@
     <!-- Our amoled doesn't animate well. -->
     <bool name="config_animateScreenLights">false</bool>
 
-    <integer name="config_deskDockKeepsScreenOn">0</integer>
-    <integer name="config_carDockKeepsScreenOn">1</integer>
-    <bool name="config_deskDockEnablesAccelerometer">true</bool>
-
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
@@ -46,7 +42,7 @@
 
     <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
          autodetected from the Configuration. -->
-    <bool name="config_showNavigationBar">true</bool>
+    <bool name="config_showNavigationBar">false</bool>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N + 1 zones as follows:
@@ -59,25 +55,11 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>6</item>
-	<item>9</item>
-	<item>14</item>
-	<item>20</item>
-	<item>30</item>
-	<item>46</item>
-	<item>68</item>
-        <item>103</item>
-	<item>154</item>
-        <item>231</item>
-	<item>346</item>
-	<item>519</item>
-	<item>778</item>
-	<item>1168</item>
-	<item>1752</item>
-	<item>2627</item>
-	<item>3941</item>
-        <item>5912</item>
-	<item>8867</item>
+        <item>100</item>
+        <item>200</item>
+        <item>400</item>
+        <item>1000</item>
+        <item>3000</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -85,25 +67,11 @@
          than the size of the config_autoBrightnessLevels array.
     -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>19</item>
-	<item>23</item>
-	<item>26</item>
-	<item>30</item>
-	<item>34</item>
-	<item>39</item>
-	<item>45</item>
-        <item>51</item>
-        <item>59</item>
-        <item>67</item>
-        <item>77</item>
-        <item>88</item>
-	<item>101</item>
-	<item>116</item>
-	<item>133</item>
-	<item>152</item>
-	<item>174</item>
-	<item>199</item>
-	<item>228</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
         <item>250</item>
     </integer-array>
 
@@ -112,26 +80,12 @@
          than the size of the config_autoBrightnessLevels array.
     -->
     <integer-array name="config_autoBrightnessButtonBacklightValues">
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
     </integer-array>
 
     <!-- Array of output values for keyboard backlight corresponding to the LUX values
@@ -140,26 +94,12 @@
          Crespo has no keyboard so all values are zero.
     -->
     <integer-array name="config_autoBrightnessKeyboardBacklightValues">
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
+        <item>255</item>
     </integer-array>
 
     <!-- Minimum screen brightness allowed by the power manager. -->
@@ -252,7 +192,31 @@
 
     <!-- Component name of the default wallpaper. This will be ImageWallpaper if not
          specified -->
-    <string name="default_wallpaper_component" translatable="false">com.android.phasebeam/.PhaseBeamWallpaper</string>
+    <string name="default_wallpaper_component" translatable="false">@null</string>
+
+    <!-- Vibrator pattern for feedback about touching a virtual key -->
+    <integer-array name="config_virtualKeyVibePattern">
+        <item>25</item>
+    </integer-array>
+
+    <!-- Boolean indicating if restoring network selection should be skipped -->
+    <!-- The restoring is handled by modem if it is true -->
+    <bool translatable="false" name="skip_restoring_network_selection">true</bool>
+
+    <!-- If true, the direction rotation is applied to get to an application's requested
+         orientation is reversed.  Normally, the model is that landscape is
+         clockwise from portrait; thus on a portrait device an app requesting
+         landscape will cause a clockwise rotation, and on a landscape device an
+         app requesting portrait will cause a counter-clockwise rotation.  Setting
+         true here reverses that logic. -->
+    <bool name="config_reverseDefaultRotation">false</bool>
+
+    <!-- If true, the screen can be rotated via the accelerometer in all 4
+         rotations as the default behavior. -->
+    <bool name="config_allowAllRotations">true</bool>
+
+    <!-- Allow the menu hard key to be disabled in LockScreen on some devices -->
+    <bool name="config_disableMenuKeyInLockScreen">true</bool>
 
 
 </resources>

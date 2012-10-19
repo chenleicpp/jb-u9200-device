@@ -22,7 +22,6 @@ vendor/lib/egl/libGLESv2_POWERVR_SGX544_112.so
 vendor/lib/hw/gralloc.omap4430.so
 vendor/lib/hw/gralloc.omap4460.so
 vendor/lib/hw/gralloc.omap4470.so
-vendor/lib/hw/hwcomposer.omap4.so
 vendor/lib/libbltsville_cpu.so
 vendor/lib/libbltsville_gc2d.2.1.2.0.so
 vendor/lib/libbltsville_gc2d.so
