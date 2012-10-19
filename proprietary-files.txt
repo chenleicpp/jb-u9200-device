@@ -47,15 +47,14 @@ vendor/lib/libusc_SGX540_120.so
 vendor/lib/libusc_SGX544_112.so
 lib/hw/audio.a2dp.default.so
 lib/hw/audio.hdmi.omap4.so
-lib/hw/audio_policy.default.so
+lib/hw/audio.primary.default.so
 lib/hw/audio.primary.omap4.so
-lib/hw/camera.omap4.so
+lib/hw/audio_policy.default.so
 lib/hw/gps.omap4.so
 lib/hw/lights.omap4.so
 lib/hw/sensors.omap4.so
 lib/modules/pvrsrvkm_sgx540_120.ko
 lib/modules/pvrsrvkm_sgx544_112.ko
-lib/libaudioutils.so
 lib/libtinyalsa.so
 lib/libtiutils.so
 lib/libbluedroid.so

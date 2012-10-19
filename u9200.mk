@@ -58,7 +58,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
 	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
 
-#permission
+# extra permission
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/prebuilt/permissions/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     $(LOCAL_PATH)/prebuilt/permissions/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
@@ -99,6 +99,10 @@ PRODUCT_PACKAGES += \
 	make_ext4fs \
 	e2fsck \
 	setup_fs
+
+# Audio
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
