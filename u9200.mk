@@ -104,9 +104,33 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
 
-$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+# TI omap4
+PRODUCT_VENDOR_KERNEL_HEADERS := hardware/ti/omap4xxx/kernel-headers
 
-$(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
+PRODUCT_PACKAGES := \
+	libdomx \
+	libOMX_Core \
+	libOMX.TI.DUCATI1.VIDEO.H264E \
+	libOMX.TI.DUCATI1.VIDEO.MPEG4E \
+	libOMX.TI.DUCATI1.VIDEO.DECODER \
+	libOMX.TI.DUCATI1.VIDEO.DECODER.secure \
+	libOMX.TI.DUCATI1.VIDEO.CAMERA \
+	libOMX.TI.DUCATI1.MISC.SAMPLE \
+    libdrmdecrypt \
+	libstagefrighthw \
+    libI420colorconvert \
+	libtiutils \
+	libcamera \
+	libion \
+	camera.omap4 \
+	libomxcameraadapter \
+	smc_pa_ctrl \
+	tf_daemon \
+	libtf_crypto_sst
+
+
+
+$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 $(call inherit-product, build/target/product/full.mk)
 
