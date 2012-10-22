@@ -194,11 +194,6 @@
          specified -->
     <string name="default_wallpaper_component" translatable="false">@null</string>
 
-    <!-- Vibrator pattern for feedback about touching a virtual key -->
-    <integer-array name="config_virtualKeyVibePattern">
-        <item>25</item>
-    </integer-array>
-
     <!-- Boolean indicating if restoring network selection should be skipped -->
     <!-- The restoring is handled by modem if it is true -->
     <bool translatable="false" name="skip_restoring_network_selection">true</bool>

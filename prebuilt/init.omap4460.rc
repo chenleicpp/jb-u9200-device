@@ -33,14 +33,14 @@ import init.omap4460.usb.rc
 
 on early-init
     export EXTERNAL_STORAGE /storage/sdcard1
-#    export SECONDARY_STORAGE /storage/sdcard0
+    export SECONDARY_STORAGE /storage/sdcard0
     mkdir /storage 0050 system sdcard_r
     mkdir /storage/sdcard0 0000 system system
     mkdir /storage/sdcard1 0000 system system
     # for backwards compatibility
-    symlink /storage/sdcard0 /sdcard
-    symlink /storage/sdcard0 /mnt/sdcard
-    symlink /storage/sdcard1 /sdcard2
+    symlink /storage/sdcard0 /emmc
+    symlink /storage/sdcard0 /mnt/emmc
+    symlink /storage/sdcard1 /sdcard
     symlink /storage/sdcard1 /mnt/ext_sdcard
 
 on post-fs-data

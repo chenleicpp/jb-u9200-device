@@ -17,10 +17,6 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
-# high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
-
 #init
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/init.rc:root/init.rc \
