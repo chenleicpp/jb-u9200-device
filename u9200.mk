@@ -122,11 +122,14 @@ PRODUCT_PACKAGES := \
 	libtiutils \
 	libcamera \
 	libion \
-	camera.omap4 \
 	libomxcameraadapter \
 	smc_pa_ctrl \
 	tf_daemon \
 	libtf_crypto_sst
+
+# Camera
+PRODUCT_PACKAGES := \
+    Camera
 
 
 

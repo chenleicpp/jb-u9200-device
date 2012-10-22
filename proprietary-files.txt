@@ -50,6 +50,7 @@ lib/hw/audio.hdmi.omap4.so
 lib/hw/audio.primary.default.so
 lib/hw/audio.primary.omap4.so
 lib/hw/audio_policy.default.so
+lib/hw/camera.omap4.so
 lib/hw/gps.omap4.so
 lib/hw/lights.omap4.so
 lib/hw/sensors.omap4.so
