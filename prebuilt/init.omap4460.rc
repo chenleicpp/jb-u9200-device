@@ -399,74 +399,6 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
         oneshot
 #DTS2011120400489     p00185344		  2011/12/04			add bcm4330 wifi  code to ICS version end >
 
-# DTS2011111202173 l00188955 2011-11-14 begin: add syslog for kernel
-#service syslogd /system/bin/syslogd
-#    class core
-#    user root
-#    group system
-#    oneshot
-
-#service klogd /system/bin/klogd
-#    class core
-#    user root
-#    group system
-#    oneshot
-# DTS2011111202173 l00188955 2011-11-14 end
-
-# /*< DTS2012030604183 y00182744 2011-03-07 add begin*/
-service rillogcat /system/bin/logcat -b radio -v time -r 4096 -n 10 -f /data/android_logs/rillogcat-log
-    class main
-    user root
-    group system
-    oneshot
-# /* DTS2012030604183 y00182744 2011-03-07 add end >*/
-
-#DTS2012011606883 c00116387 begin add services and change directory
-# < DTS2012020908318 l00188955 2012-02-10 begin: modified to save logs on data directory
-# applogcat is triggered by projectmenu or setprop
-service applogcat /system/bin/logcat -v time -r 4096 -n 32 -f /data/android_logs/applogcat-log
-    class main
-    user root
-    group system
-    oneshot
-
-# kmsglogcat is triggered by projectmenu or setprop
-service kmsglogcat /system/bin/kmsgcat -r 4096 -n 32 -f /data/android_logs/kmsgcat-log
-    class main
-    user root
-    group system
-    oneshot
-# DTS2012020908318 l00188955 2012-02-10 end >
-
-#/*< DTS2011122003374 l00192645 2011-12-28 begin*/
-service sleeplogcat /system/bin/sleeplogcat -t 10 -p /mnt/ext_sdcard/sleeplog/
-    class core
-    user root
-    group system
-#/*< DTS2012030608196 s00175896 2012-03-06 begin*/
-#    disabled
-#/*DTS2012030608196 s00175896 2012-03-06 end >*/
-#/*DTS2011122003374 l00192645 2011-12-28 end >*/
-
-#/*< DTS2012010604888 l00192645 2012-01-07 begin*/
-service chargelogcat /system/bin/chargelogcat -t 2 -p /mnt/ext_sdcard/chargelog/
-    class core
-    user root
-    group system
-#/*< DTS2012030608196 s00175896 2012-03-06 begin*/
-#    disabled
-#/*DTS2012030608196 s00175896 2012-03-06 end >*/
-#/*DTS2012010604888 l00192645 2012-01-07 end >*/
-#DTS2012011606883 c00116387 end
-
-#/*< DTS2012020301901 t00159244 2012-02-15 add for modemlogcat begin*/
-service modemlogcat /system/bin/modemlogcat -r 50 -n 9 -p /mnt/ext_sdcard/modemlogs/
-    class core
-    user root
-    group system
-    disabled
-#/* DTS2012020301901 t00159244 2012-02-15 add for modemlogcat end >*/
-
 on property:wlan.driver.status=ok
     chown wifi wifi /sys/devices/platform/wl1271/bt_coex_state
 
@@ -475,13 +407,6 @@ service navl_server /system/bin/navd --android_log NAVD  -p3 -nav\"-c/system/etc
 	disabled
 	oneshot
 
-#<DTS2011122002914 j00181309 2011/12/20 delete for btla stack begin
-#/*<DTS2011120105354 z00192837 20111220 begin*/
-#service btld /system/bin/btld
-#    user root
-#    group bluetooth net_bt_admin system
-#    disabled
-#    oneshot
 #/*DTS2011120105354 z00192837 20111220 end>*/	
 #DTS2011122002914 j00181309 2011/12/20 delete for btla stack end>
 
@@ -534,20 +459,6 @@ service iprenew_brcm-pan /system/bin/dhcpcd -n
 	class main
 	disabled
 	oneshot
-	
-service btld /system/bin/logwrapper /system/bin/btld -lpm 1 -hb 3000000 -snr 8
-    user root
-    group bluetooth net_bt_admin
-    disabled
-    oneshot
-
-# start btld if soft_onoff is enabled
-on property:service.brcm.bt.soft_onoff=1
-    start btld
-
-# stop btld if soft_onoff is disabled
-on property:service.brcm.bt.soft_onoff=0
-    stop btld
 
 #STOPSHIP: Remove logwrapper and -d option before production
 service bluetoothd /system/bin/logwrapper /system/bin/bluetoothd -d -n
@@ -560,13 +471,6 @@ service bluetoothd /system/bin/logwrapper /system/bin/bluetoothd -d -n
     disabled
 #DTS2012011707420 z00183953 2012/01/18 add btla beta release stack to ics end>
 #DTS2011122002914 j00181309 2011/12/20 add btla stack to ics end>
-
-#<DTS2012010703632   z00185222     2012/01/07    enable FM after BTLA porting ok begin
-service kbtld /system/bin/sh /system/etc/bluetooth/kill-btld.sh
-	user root
-	group system bluetooth
-	disabled
-	oneshot
 
 service kbluetoothd /system/bin/sh /system/etc/bluetooth/kill-bluetoothd.sh
 	user root

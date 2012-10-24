@@ -8,8 +8,8 @@ $(call inherit-product-if-exists, vendor/huawei/u9200/u9200-vendor.mk)
 DEVICE_PACKAGE_OVERLAYS += device/huawei/u9200/overlay
 
 # high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
+PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 LOCAL_PATH := device/huawei/u9200
 ifeq ($(TARGET_PREBUILT_KERNEL),)
@@ -99,34 +99,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
 
-# TI omap4
-PRODUCT_VENDOR_KERNEL_HEADERS := hardware/ti/omap4xxx/kernel-headers
-
-PRODUCT_PACKAGES := \
-	libdomx \
-	libOMX_Core \
-	libOMX.TI.DUCATI1.VIDEO.H264E \
-	libOMX.TI.DUCATI1.VIDEO.MPEG4E \
-	libOMX.TI.DUCATI1.VIDEO.DECODER \
-	libOMX.TI.DUCATI1.VIDEO.DECODER.secure \
-	libOMX.TI.DUCATI1.VIDEO.CAMERA \
-	libOMX.TI.DUCATI1.MISC.SAMPLE \
-    libdrmdecrypt \
-	libstagefrighthw \
-    libI420colorconvert \
-	libtiutils \
-	libcamera \
-	libion \
-	libomxcameraadapter \
-	smc_pa_ctrl \
-	tf_daemon \
-	libtf_crypto_sst
+# Bluetooth
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/configs/init.bcm.chip_off.sh:system/etc/bluetooth/init.bcm.chip_off.sh \
+    $(LOCAL_PATH)/configs/init.bcm.chip_on.sh:system/etc/bluetooth/init.bcm.chip_on.sh
 
 # Camera
 PRODUCT_PACKAGES := \
     Camera
-
-
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 

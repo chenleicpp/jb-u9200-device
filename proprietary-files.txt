@@ -3,6 +3,8 @@ bin/akmd8975
 bin/rild
 bin/cust
 bin/gpslogd
+bin/brcm_patchram_plus
+bin/hci_dev_state
 vendor/bin/pvrsrvinit
 vendor/bin/pvrsrvctl_SGX540_120
 vendor/bin/pvrsrvctl_SGX544_112
@@ -101,3 +103,5 @@ etc/firmware/TIInit_10.6.15.bts
 etc/firmware/TIInit_7.2.31.bts
 etc/firmware/TIInit_7.6.15.bts
 etc/bluetooth/BCM4330B1.hcd
+etc/bluetooth/init.bcm.chip_off.sh
+etc/bluetooth/init.bcm.chip_on.sh
