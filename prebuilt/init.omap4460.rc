@@ -279,15 +279,6 @@ service pvrsrvinit /vendor/bin/pvrsrvinit
 	group root
 	oneshot
 
-# create filesystems if necessary
-service setup_fs /system/bin/setup_fs \
-		/dev/block/platform/omap/omap_hsmmc.1/by-name/cache \
-		/dev/block/platform/omap/omap_hsmmc.1/by-name/userdata
-        class core
-        user root
-        group root
-        oneshot
-
 
 #<DTS2011120101830     z00185222       2011/12/01                    add bcm4330 bluez code to ICS version begin
 #shared transport user space mgr service for Bluetooth, FM and GPS
@@ -308,17 +299,6 @@ service tf_daemon /system/bin/tf_daemon \
     group root
     oneshot
     disabled
-
-###################################################
-# MSHIELD SMC PA Control - installs the SMC PA into the Secure Environment
-###################################################
-service smc_pa /system/bin/smc_pa_ctrl \
-    -c /vendor/etc/smc_normal_world_android_cfg.ini \
-    start /vendor/firmware/smc_pa.ift
-    class core
-    user root
-    group root
-    oneshot
 
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/bugmailer.sh -v

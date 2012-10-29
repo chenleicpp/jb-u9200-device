@@ -751,12 +751,6 @@ service gpsd  /system/bin/glgps -c /system/etc/gpsconfig.xml
 #<DTS2011120703496 z00186406 2011-12-07 end 
 #DTS2011120300245 z00186406 2011-12-03 end>
 
-#DTS2011091800177 c00182898 ATcmd Server source upload begin
-service atcmdserver  /system/bin/atcmdserver
-    class main
-    user root
-    oneshot
-#DTS2011091800177 c00182898 ATcmd Server source upload end
 #/* < DTS2012020904497 y00207749 20120209 add for system stat tool begin */
 service systemstattool /system/bin/systemstattool
     socket socket_front_act_info stream 0660 root mount
