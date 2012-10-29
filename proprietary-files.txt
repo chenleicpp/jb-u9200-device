@@ -1,7 +1,6 @@
 bin/glgps
 bin/akmd8975
 bin/rild
-bin/cust
 bin/gpslogd
 bin/brcm_patchram_plus
 bin/hci_dev_state
@@ -66,19 +65,7 @@ lib/libclcore.bc
 lib/libclcore_neon.bc
 lib/libdomx.so
 lib/libexif.so
-lib/libfmradio.so
-lib/libhelixplayer.so
-lib/libHME-Audio.so
-lib/libHME-Audio-v6.so
-lib/libHME-Video.so
-lib/libHME-Video-v6.so
-lib/libHuaweiAudioEngine.so
-lib/libHuaweiAudioEngine-v6.so
-lib/libHuaweiNat.so
-lib/libHuaweiVideoEngine.so
-lib/libHuaweiVideoEngine-v6.so
 lib/libion.so
-lib/libjpeg.so
 lib/libmm_osal.so
 lib/libOMX_Core.so
 lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so
@@ -87,7 +74,6 @@ lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so
 lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so
 lib/libOMX.TI.DUCATI1.VIDEO.H264E.so
 lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so
-lib/libparseprofile.so
 lib/libRedEye.so
 lib/libril.so
 lib/libxgold-ril.so
@@ -103,5 +89,3 @@ etc/firmware/TIInit_10.6.15.bts
 etc/firmware/TIInit_7.2.31.bts
 etc/firmware/TIInit_7.6.15.bts
 etc/bluetooth/BCM4330B1.hcd
-etc/bluetooth/init.bcm.chip_off.sh
-etc/bluetooth/init.bcm.chip_on.sh
