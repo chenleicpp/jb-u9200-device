@@ -8,8 +8,7 @@ $(call inherit-product-if-exists, vendor/huawei/u9200/u9200-vendor.mk)
 DEVICE_PACKAGE_OVERLAYS += device/huawei/u9200/overlay
 
 # high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
+PRODUCT_AAPT_CONFIG := normal hdpi
 
 LOCAL_PATH := device/huawei/u9200
 ifeq ($(TARGET_PREBUILT_KERNEL),)
