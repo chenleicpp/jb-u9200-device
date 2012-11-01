@@ -1,17 +1,3 @@
-#########################################################################################
-#
-#modify history        author        date            reason
-#
-#DTS2011121602950    l00188955      2011/12/16      modified for usb function switch
-#DTS2012010406046    l00188955      2011/01/04      update usb functions for usb driver Handset WinDriver 1.02.00.00
-#DTS2012011705148    z00183409      2012/01/17      delete the accessory property for which is in init.rc
-#DTS2012011902069    w00177577	    2012/02/01      open ums function
-#DTS2012020200352    l00188955      2012/02/02      write ro.serialno to iSerial in each usb mode
-#DTS2012013105280    l00188955      2012/02/02      add hisuite mode
-#DTS2012021702581    l00188955      2012/02/17      modify hisuite mode to support mtp
-#DTS2012022005180    l00188955      2012/02/20      add ums function in mtp/ptp mode without adb
-#DTS2012031906790    z00202508      2012/03/19      seperate usb disk and usb cdrom for mass_storage mode.
-##########################################################################################
 
 on init
     write /sys/class/android_usb/android0/f_rndis/wceis 1
@@ -30,31 +16,24 @@ on property:sys.usb.config=none
     write /sys/class/android_usb/android0/bDeviceClass 0
     setprop sys.usb.state $sys.usb.config
 
-# < DTS2012020200352 l00188955 2012-02-02 begin: add ro.serialno to report sn
-# < DTS2012022005180 l00188955 2012-02-20 begin: add ums for mtp
 on property:sys.usb.config=mtp,mass_storage
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 12d1
     write /sys/class/android_usb/android0/idProduct 1051
     write /sys/class/android_usb/android0/iSerial $ro.serialno
-    # /* <DTS2012031906790 z00202508 2012-3-19 start> */
     write /sys/class/android_usb/f_mass_storage/luns sdcard
     write /sys/class/android_usb/f_mass_storage/lun/file none
-    # /* <DTS2012031906790 z00202508 2012-3-19 end> */
     write /sys/class/android_usb/android0/functions $sys.usb.config
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state $sys.usb.config
-# DTS2012022005180 l00188955 2012-02-20 end >
 
 on property:sys.usb.config=mtp,mass_storage,adb
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 12d1
     write /sys/class/android_usb/android0/idProduct 1052
     write /sys/class/android_usb/android0/iSerial $ro.serialno
-    # /* <DTS2012031906790 z00202508 2012-3-19 start> */
     write /sys/class/android_usb/f_mass_storage/luns sdcard
     write /sys/class/android_usb/f_mass_storage/lun/file none
-    # /* <DTS2012031906790 z00202508 2012-3-19 end> */
     write /sys/class/android_usb/android0/functions mtp,adb,mass_storage
     write /sys/class/android_usb/android0/enable 1
     start adbd
@@ -98,30 +77,24 @@ on property:sys.usb.config=rndis,adb
     start adbd
     setprop sys.usb.state $sys.usb.config
 
-# < DTS2012022005180 l00188955 2012-02-20 begin: add ums for ptp
 on property:sys.usb.config=ptp,mass_storage
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 12d1
     write /sys/class/android_usb/android0/idProduct 1053
-    # /* <DTS2012031906790 z00202508 2012-3-19 start> */
     write /sys/class/android_usb/f_mass_storage/luns sdcard
     write /sys/class/android_usb/f_mass_storage/lun/file none
-    # /* <DTS2012031906790 z00202508 2012-3-19 end> */
     write /sys/class/android_usb/android0/iSerial $ro.serialno
     write /sys/class/android_usb/android0/functions $sys.usb.config
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state $sys.usb.config
-# DTS2012022005180 l00188955 2012-02-20 end >
 
 on property:sys.usb.config=ptp,mass_storage,adb
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 12d1
     write /sys/class/android_usb/android0/idProduct 1054
     write /sys/class/android_usb/android0/iSerial $ro.serialno
-    # /* <DTS2012031906790 z00202508 2012-3-19 start> */
     write /sys/class/android_usb/f_mass_storage/luns sdcard
     write /sys/class/android_usb/f_mass_storage/lun/file none
-    # /* <DTS2012031906790 z00202508 2012-3-19 end> */
     write /sys/class/android_usb/android0/functions ptp,adb,mass_storage
     write /sys/class/android_usb/android0/enable 1
     start adbd
@@ -151,10 +124,8 @@ on property:sys.usb.config=mass_storage
     write /sys/class/android_usb/android0/idVendor 12d1
     write /sys/class/android_usb/android0/idProduct 1037
     write /sys/class/android_usb/android0/iSerial $ro.serialno
-    # /* <DTS2012031906790 z00202508 2012-3-19 start> */
     write /sys/class/android_usb/f_mass_storage/luns sdcard
     write /sys/class/android_usb/f_mass_storage/lun/file none
-    # /* <DTS2012031906790 z00202508 2012-3-19 end> */
     write /sys/class/android_usb/android0/functions $sys.usb.config
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state $sys.usb.config
@@ -164,17 +135,13 @@ on property:sys.usb.config=mass_storage,adb
     write /sys/class/android_usb/android0/idVendor 12d1
     write /sys/class/android_usb/android0/idProduct 1038
     write /sys/class/android_usb/android0/iSerial $ro.serialno
-    # /* <DTS2012031906790 z00202508 2012-3-19 start> */
     write /sys/class/android_usb/f_mass_storage/luns sdcard
     write /sys/class/android_usb/f_mass_storage/lun/file none
-    # /* <DTS2012031906790 z00202508 2012-3-19 end> */
     write /sys/class/android_usb/android0/functions $sys.usb.config
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state $sys.usb.config
 
-#< DTS2012011705148 z00183409 2012-01-18 begin:delete the accessory property for which is in init.rc
-#  DTS2012011705148 z00183409 2012-01-18 end >
 
 on property:sys.usb.config=modem
     write /sys/class/android_usb/android0/enable 0
@@ -200,32 +167,21 @@ on property:sys.usb.config=modem,nmea,mass_storage,adb,diag
     write /sys/class/android_usb/android0/idVendor 12d1
     write /sys/class/android_usb/android0/idProduct 1035
     write /sys/class/android_usb/android0/iSerial cleanup
-    # /* <DTS2012031906790 z00202508 2012-3-19 start> */
     write /sys/class/android_usb/f_mass_storage/luns sdcard
     write /sys/class/android_usb/f_mass_storage/lun/file none
-    # /* <DTS2012031906790 z00202508 2012-3-19 end> */
     write /sys/class/android_usb/android0/functions $sys.usb.config
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state $sys.usb.config
 
-# DTS2012020200352 l00188955 2012-02-02 end >
-
-# < DTS2012013105280 l00188955 2012-02-02 begin: added hisuite mode
-# < DTS2012021702581 l00188955 2012-02-17 begin: modify hisuite mode to support mtp
 on property:sys.usb.config=hisuite,mtp,mass_storage,adb
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 12d1
     write /sys/class/android_usb/android0/idProduct 1052
     write /sys/class/android_usb/android0/iSerial $ro.serialno
-    # /* <DTS2012031906790 z00202508 2012-3-19 start> */
     write /sys/class/android_usb/f_mass_storage/luns cdrom
     write /sys/class/android_usb/f_mass_storage/lun/file /data/cust/cdrom/autorun.iso
-    # /* <DTS2012031906790 z00202508 2012-3-19 end> */
     write /sys/class/android_usb/android0/functions mtp,adb,mass_storage
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state $sys.usb.config
-
-# DTS2012021702581 l00188955 2012-02-17 end >
-# DTS2012013105280 l00188955 2012-02-02 end >

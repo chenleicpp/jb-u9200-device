@@ -3,31 +3,6 @@
 # IMPORTANT: Do not create world writable files or directories.
 # This is a common source of Android security bugs.
 #
-#/*==============================================================================
-#History
-#Problem NO.         Name        Time         Reason
-#DTS2011121301877    z00190171   2011/12/13   modify for front control touchKey leds
-#DTS2011121404047    jKF31740    2011/12/14   add toshiba backlight control feature
-#DTS2011121502991    l00186011   2011/12/15   modify file access mode for Projectmenu
-#DTS2011122804252    z00192785   2011/12/29   merge cust scheme
-#DTS2011122002914    j00181309   2011/12/20   modify for btla stack
-#DTS2012020106879    j00181309   2012/02/02   apart bcm-btla.jar from framework.jar
-#DTS2012013105280    l00188955   2012/02/02   add suitestate for hisuite mode
-#DTS2012021007117    w00172421   2012/02/10   modify i2c node authority
-#DTS2012021003349    wkf40768    2012/02/10   leds set color yellow to orange
-#DTS2012011200528    l00178492   2012/02/10   add at lock function
-#DTS2012021400374    g00192882   2012/02/14   modify the sysfile's access
-#DTS2012011300630   g00192882   2012/02/19   modified the range set interface
-#DTS2012022100514    z00192785   2012/02/21   add new dir link for cust
-#DTS2012022104173    z00192785   2012/02/22   delete oma dir
-#DTS2012022307787    c00182898   2012/02/23	  modify MMI test open nve0 faild
-#DTS2012022907934    l00209059   2012/03/01   modify nvm_server to start as background serverce
-#DTS2011101805211    z00202508   2012/03/03   Add usb factory mode lock.
-#DTS2012031302821    x00186570   2012/03/13   remove nvm_server service in viva
-#DTS2012031401397    c00116387   2012/03/23   set printk level by property
-#DTS2012032704825    z00192785   2012/03/27   add new dir link for cust
-#==============================================================================*/
-
 
 import /init.${ro.hardware}.rc
 import /init.usb.rc
@@ -48,14 +23,9 @@ sysclktz 0
 
 loglevel 3
 
-#<DTS2012020106879 j00181309 2012/02/02 mod for apart bcm-btla.jar from framework.jar begin
 # setup the global environment
     export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
-# /* < DTS2012073102596 yangjunjian 00179471 20120801 begin */
-# /* < DTS2012080400788 wanggang 180790 20120806 begin */
-    export LD_LIBRARY_PATH /vendor/lib:/data/cust/lib:/system/lib:/data/datalib
-# /* DTS2012080400788 wanggang 180790 20120806 end >*/
-# /* DTS2012073102596 yangjunjian 00179471 20120801 end >*/
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib
     export ANDROID_BOOTLOGO 1
     export ANDROID_CACHE /cache
     export ANDROID_ROOT /system
@@ -63,9 +33,7 @@ loglevel 3
     export ANDROID_DATA /data
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
-    # /* <DTS2012080203909 tiandazhang 20120802 begin */
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/framework2.jar:/system/framework/hwframework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
-    # /* DTS2012080203909 tiandazhang 20120802 end> */
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/framework2.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
 
 # Backward compatibility
     symlink /system/etc /etc
@@ -75,7 +43,6 @@ loglevel 3
 # but someday that may change.
     symlink /system/vendor /vendor
 
-#DTS2012021700316 w00205257 2012/02/21 begin
 #the owner of all *.rc *.proc on / must be root or system
 chown root root /init
 chown root root /init.goldfish.rc
@@ -87,7 +54,6 @@ chown root root /ueventd.omap4430.rc
 chown root root /ueventd.rc
 chown root root /default.prop
 chown root root /sbin
-#DTS2012021700316 w00205257 2012/02/21 end
 
 # Create cgroup mount point for cpu accounting
     mkdir /acct
@@ -98,9 +64,7 @@ chown root root /sbin
     mkdir /data 0771 system system
     mkdir /cache 0771 system cache
     mkdir /config 0500 root root
-    #DTS2011122804252 z00192785 2011-12-29 begin
-    mkdir /cust
-    #DTS2011122804252 z00192785 2011-12-29 end
+
     # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root
 
@@ -162,12 +126,9 @@ chown root root /sbin
 # This is needed by any process that uses socket tagging.
     chmod 0644 /dev/xt_qtaguid
 
-    #DTS2011070802939 2011-07-08  l00104178  VIVA手机合入NVE管理方案和分区方案
     write /sys/module/block2mtd/parameters/block2mtd /dev/block/platform/omap/omap_hsmmc.1/by-name/nvme
 
-# /* < DTS2011101805211 z00202508 2012-3-3 add begin > */
     setprop ro.hwboottype boot_android
-# /* < DTS2011101805211 z00202508 2012-3-3 add end > */
 
 on fs
 # mount mtd partitions
@@ -210,10 +171,8 @@ on post-fs-data
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data
     chmod 0771 /data
-#<DTS2012091406244 j81003738  2012-9-14  jellybean add gps feature begin
     mkdir /data/gps
     chown root system /data/gps
-#<DTS2012091406244 j81003738  2012-9-14  jellybean add gps feature end >
     # Create dump dir and collect dumps.
     # Do this before we mount cache so eventually we can use cache for
     # storing dumps on platforms which do not have a dedicated dump partition.
@@ -278,38 +237,16 @@ on post-fs-data
     # create directory for DRM plug-ins - give drm the read/write access to
     # the following directory.
     mkdir /data/drm 0770 drm drm
-    # /*< DTS2012080102391 tiandazhang 20120801 begin */
     mkdir /data/drm/rights 0770 drm drm
-    # /* DTS2012080102391 tiandazhang 20120801 end >*/
-    #/* <DTS2012080201243 tiandazhang 20120802 begin */
     mkdir /data/drm/widevine 0770 drm drm
-    #/* DTS2012080201243 tiandazhang 20120802 end> */
-    # DTS2012032004760 j00193806 20120320 begin
     mkdir /data/data/.helix 0771 media media
-    # DTS2012032004760 j00193806 20120320 end
-
-    # If there is no fs-post-data action in the init.<device>.rc file, you
-    # must uncomment this line, otherwise encrypted filesystems
-    # won't work.
-    # Set indication (checked by vold) that we have finished this action
-    #setprop vold.post_fs_data_done 1
 
 
-
-# < DTS2012013105280 l00188955 2012-02-02 begin: change the owner and group of suitestate and file
     chown system system /sys/class/android_usb/f_mass_storage/suitestate
     chmod 0660 /sys/class/android_usb/f_mass_storage/suitestate
     chown system system /sys/class/android_usb/android0/f_mass_storage/lun1/file
     chmod 0660 /sys/class/android_usb/android0/f_mass_storage/lun1/file
-# DTS2012013105280 l00188955 2012-02-02 end >
 
-on cust
-    start cust
-
-
-#/* < DTS2011042504555 gaozhibin 20110503 begin */
-    custsymlink delapp /data/cust/delapp
-#/* DTS2011042504555 gaozhibin 20110503 end >*/
 
 # Include extra init file
 import /system/etc/init.local.rc
@@ -374,17 +311,11 @@ on boot
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/leds/keyboard-backlight/brightness
     chown system system /sys/class/leds/lcd-backlight/brightness
-    #<DTS2011121404047 jKF31740 20111214 modify begin
     chown system system /sys/class/backlight/lcd/brightness
-    #DTS2011121404047 jKF31740 20111214 modify end>
-    #DTS2011120302674    z00190171   2011/12/03  add for sensors update version.I begin
     chown system system /sys/devices/platform/i2c_omap.4/i2c-4/4-0012/leds/button-backlight-tk/brightness
 	chown system system /sys/devices/platform/i2c_omap.2/i2c-2/2-0012/leds/button-backlight-tk/brightness
     chown system system /sys/devices/platform/TK-backlight/leds/button-backlight-tk/brightness
-    #DTS2011120302674    z00190171   2011/12/03  add for sensors update version.I end
-    #<DTS2011121301877 z00190171 2011/12/13 modify for front control touchKey leds begin
     chown system system /sys/class/leds/button-backlight-tk/brightness
-    #DTS2011121301877 z00190171 2011/12/13 modify for front control touchKey leds end>
     chown system system /sys/class/leds/button-backlight/brightness
     chown system system /sys/class/leds/jogball-backlight/brightness
     chown system system /sys/class/leds/red/brightness
@@ -408,23 +339,19 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_def
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
-#DTS2011120302674    z00190171   2011/12/03  add for sensors update version.I begin
+
     chown system system /sys/bus/i2c/drivers/lis3dh_acc/4-0018/*
     chown system system /sys/bus/i2c/drivers/lis3dh_acc/4-0018/enable
     chown system system /sys/bus/i2c/drivers/lis3dh_acc/4-0018/pollrate_ms
     chown system system /sys/bus/i2c/drivers/lis3dh_acc/4-0018/range
-#DTS2012011300630 g00192882 2012/02/19 add begin
     chown system system /sys/bus/i2c/drivers/lis3dh_acc/4-0018/accl_data
     chown system system /sys/bus/i2c/drivers/lis3dh_acc/4-0018/accl_info
-#DTS2012011300630 g00192882 2012/02/19 add end
 
     chown system system /sys/bus/i2c/drivers/l3g4200d_gyr/4-0068/*
     chown system system /sys/bus/i2c/drivers/l3g4200d_gyr/4-0068/enable_device
     chown system system /sys/bus/i2c/drivers/l3g4200d_gyr/4-0068/pollrate_ms
     chown system system /sys/bus/i2c/drivers/l3g4200d_gyr/4-0068/range
-#DTS2012011300630 g00192882 2012/02/19 add begin
     chown system system /sys/bus/i2c/drivers/l3g4200d_gyr/4-0068/enable_selftest
-#DTS2012011300630 g00192882 2012/02/19 add end
 
     chown system system /sys/bus/i2c/drivers/adxl34x/4-0053/*
     chown system system /sys/bus/i2c/drivers/adxl34x/4-0053/enable
@@ -434,29 +361,22 @@ on boot
     chown system system /sys/bus/i2c/drivers/mma8452/4-001c/enable
     chown system system /sys/bus/i2c/drivers/mma8452/4-001c/pollrate_ms
     chown system system /sys/bus/i2c/drivers/mma8452/4-001c/range
-#DTS2012011300630 g00192882 2012/02/19 add begin
     chown system system /sys/bus/i2c/drivers/mma8452/4-001c/position
     chown system system /sys/bus/i2c/drivers/mma8452/4-001c/accl_data
-#DTS2012011300630 g00192882 2012/02/19 add end
     chmod 0660 /sys/bus/i2c/drivers/apds990x/4-0039/*
     chown system system /sys/bus/i2c/drivers/apds990x/4-0039/enable_ps_sensor
     chown system system /sys/bus/i2c/drivers/apds990x/4-0039/enable_als_sensor
     chown system system /sys/bus/i2c/drivers/apds990x/4-0039/als_poll_delay
-# DTS2012021400374 g00192882 2012/02/14 add begin
     chown system system /sys/bus/i2c/drivers/ltr-558/4-0023/enable_ps_sensor
     chown system system /sys/bus/i2c/drivers/ltr-558/4-0023/enable_als_sensor
     chown system system /sys/bus/i2c/drivers/tps61310/3-0033/tps61310_led_lightness
-# DTS2012021400374 g00192882 2012/02/14 add end
-#DTS2011120302674    z00190171   2011/12/03  add for sensors update version.I end
-#DTS2012021003349 wkf40768 20120210 leds set color yellow to orange begin
     chown system system /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0045/leds/red/delay_on
     chown system system /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0045/leds/red/delay_off
     chown system system /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0045/leds/green/delay_on
     chown system system /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0045/leds/green/delay_off
     chown system system /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0045/leds/blue/delay_on
     chown system system /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0045/leds/blue/delay_off
-#DTS2012021003349 wkf40768 20120210 leds set color yellow to orange end
-#DTS2012021007117 w00172421 2012/02/10  modify i2c node authority  begin
+
     #led lightness
     chmod 0664 /sys/devices/platform/omap/omap_i2c.3/i2c-3/3-0033/tps61310_led_lightness
     
@@ -506,12 +426,8 @@ on boot
     chmod 0664 /sys/bus/i2c/drivers/bq27510-battery/state
     chmod 0664 /sys/bus/i2c/drivers/bq27510-battery/gaugelog
         
-#DTS2012021007117 w00172421 2012/02/10  modify i2c node authority end
-
-#DTS2012011200528 l00178492 2012-1-12 begin >>>
 chown system system /dev/block/platform/omap/omap_hsmmc.1/by-name/oeminfo
 chmod 0660 /dev/block/platform/omap/omap_hsmmc.1/by-name/oeminfo
-#DTS2012011200528 l00178492 2012-1-12 end <<<
 
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
@@ -621,17 +537,12 @@ service netd /system/bin/netd
 service debuggerd /system/bin/debuggerd
     class main
 
-# /* DTS2011081605546 y00185015 Added begin for xgold-ril configuration */
-#service ril-daemon /system/bin/rild
 service ril-daemon /system/bin/rild -l /system/lib/libxgold-ril.so -- -d /dev/xmd-tty0
-# /* DTS2011081605546 y00185015 Added end for xgold-ril configuration */
     class main
     socket rild stream 660 root radio
     socket rild-debug stream 660 radio system
     user root
-#<DTS2011121502991  l00186011 2011/12/15  modify file access mode for Projectmenu begin
     group radio cache inet misc audio sdcard_r sdcard_rw log bluetooth system
-# DTS2011121502991  l00186011 2011/12/15  modify file access mode for Projectmenu end>
 
 service surfaceflinger /system/bin/surfaceflinger
     class main
@@ -647,12 +558,10 @@ service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-sys
     onrestart restart media
     onrestart restart netd
 
-# /* <DTS2012080102391 tiandazhang 20120801 begin */
 service drm /system/bin/drmserver
     class main
     user drm
     group drm system inet drmrpc sdcard_rw
-# /* DTS2012080102391 tiandazhang 20120801 end> */
 
 service media /system/bin/mediaserver
     class main
@@ -673,7 +582,6 @@ service dbus /system/bin/dbus-daemon --system --nofork
     user bluetooth
     group bluetooth net_bt_admin
 
-#<DTS2011122002914 j00181309 2011/12/20 modify for btla stack begin
 # dhcp service for pan-nap/pan-u     
 service dhcpcd_brcm-pan /system/bin/dhcpcd -ABKL
 	class main
@@ -683,7 +591,6 @@ service iprenew_brcm-pan /system/bin/dhcpcd -n
 	class main
 	disabled
 	oneshot
-#DTS2011122002914 j00181309 2011/12/20 modify for btla stack end>
 
 service installd /system/bin/installd
     class main
@@ -730,42 +637,26 @@ service mdnsd /system/bin/mdnsd
     oneshot
 
 
-#DTS2011120302674    z00190171   2011/12/03  add for sensors update version.I begin
 service akmd8975  /system/bin/akmd8975 -m 3
     class main
     user system
     oneshot
-#DTS2011120302674    z00190171   2011/12/03  add for sensors update version.I end
 
-#<DTS2011120300245 z00186406 2011-12-03 begin   
-#<DTS2011120703496 z00186406 2011-12-07 begin 
+
 service gpsd  /system/bin/glgps -c /system/etc/gpsconfig.xml
     class main
     user root
-#<DTS2012091406244 j81003738  2012-9-14  jellybean add gps feature begin
 	group system
-# DTS2012091406244 j81003738  2012-9-14  jellybean add gps feature end>
-#<DTS2012021302113 z00207811 2012-02-19 begin 
 #    oneshot
-#DTS2012021302113 z00207811 2012-02-19 end> 
-#<DTS2011120703496 z00186406 2011-12-07 end 
-#DTS2011120300245 z00186406 2011-12-03 end>
 
-#/* < DTS2012020904497 y00207749 20120209 add for system stat tool begin */
 service systemstattool /system/bin/systemstattool
     socket socket_front_act_info stream 0660 root mount
     socket socket_act_start_perf stream 0660 root mount
     socket socket_low_cap_shutdown_time_info stream 0666 root mount
     disabled
 
-service cust /system/bin/cust
-    user root
-    disabled
-    oneshot
-
 on property:ro.service.systemstattool=true
     start systemstattool
-#/* DTS2012020904497 y00207749 20120209 add for system stat tool end > */
 
 
 

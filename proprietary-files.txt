@@ -61,10 +61,7 @@ lib/libtinyalsa.so
 lib/libtiutils.so
 lib/libbluedroid.so
 lib/libchip_management.so
-lib/libclcore.bc
-lib/libclcore_neon.bc
 lib/libdomx.so
-lib/libexif.so
 lib/libion.so
 lib/libmm_osal.so
 lib/libOMX_Core.so

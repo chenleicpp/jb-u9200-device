@@ -1,33 +1,3 @@
-############################################################
-#
-#modify history             author              date                               reason
-#DTS2011120101830     z00185222       2011/12/01                    add bcm4330 bluez code to ICS version
-#DTS2011111202173    l00188955    2011/11/14    add syslog for kernel
-#DTS2011120400489     p00185344		  2011/12/04					add bcm4330 wifi  code to ICS version
-#DTS2011120602683     d00185873           2011/12/06                                add audio modem interface
-#DTS2011121502991     l00186011           2011/12/15          modify file access mode for Projectmenu
-#DTS2011121504131     p00185344           2011/12/15          Merge WiFi-Direct into ICS E2
-#DTS2011120105354     z00192837           20111220            merge the funtion of FM on ICS
-#DTS2011122703394     d00186307           20111227            kernel boot time optimize
-#DTS2011122003374     l00192645           2011/12/28                add sleep log
-#DTS2011122804252     z00192785           2011/12/29          merge cust scheme
-#DTS2011122002914     j00181309           2011/12/20          add btla stack to ics
-#DTS2012010703632     z00185222           2012/01/07          enable FM after BTLA porting ok
-#DTS2012010604888     l00192645           2012/01/07                add charge log
-#DTS2012011707420     z00183953           2012/01/18          add btla beta release stack to ics
-#DTS2012011606883     c00116387           2012/01/30          add services for log dump and change directory
-#DTS2012020401271     w00177577       2012/02/04         remove error comment
-#DTS2012020908318     l00188955           2012/02/10          temprory modified to save logs on data directory
-#DTS2012021200051     w00177577       2012-02-12     otg usb function
-#DTS2012020301901     t00159244           2012-02-15          modemlogcat function
-#DTS2012022107419     l00188955           2012-02-21          modify xmd-tty5 user and group to system
-#DTS2012022307787     c00182898           2012/02/23	      modify MMI test open nve0 faild
-#DTS2012030604183     y00182744           2012/03/07	      add radiolog function
-#DTS2012021603135          h58695           2012/03/08          change internal sdcard path
-#DTS2012031202529     p00188486           2012/03/12          Add cpu frequency optimization for power saving mode
-#DTS2012032901825     z00187939           2012/03/29          bluetooth quickswitch power control modify
-#DTS2012022304490     j00174217           2012/03/26              add modem poweroff flag sysfs permissions
-############################################################
 
 import init.omap4460.usb.rc
 
@@ -45,14 +15,12 @@ on early-init
 
 on post-fs-data
     # we will remap this as /mnt/sdcard with the sdcard fuse tool
-    #DTS2012021603135 h58695 begin
     mkdir /data/share 0775 media_rw media_rw
     chown media_rw media_rw /data/share
-    #DTS2012021603135 h58695 end
 	mkdir /data/smc 0770 drmrpc drmrpc
-        chown drmrpc drmrpc /data/smc/counter.bin
-        chown drmrpc drmrpc /data/smc/storage.bin
-        chown drmrpc drmrpc /data/smc/system.bin
+    chown drmrpc drmrpc /data/smc/counter.bin
+    chown drmrpc drmrpc /data/smc/storage.bin
+    chown drmrpc drmrpc /data/smc/system.bin
 
 	setprop vold.post_fs_data_done 1
 
@@ -62,24 +30,21 @@ on boot
 	chmod 0444 /system/usr/keychars/omap4-keypad.kcm.bin
 	setprop ro.crypto.keyfile.userdata /dev/block/platform/omap/omap_hsmmc.1/by-name/crypto
 
-# /*< DTS2012031202529 pengyu 20120312 begin */
 # cpufreq interactive governor: timer 20ms, min sample 20ms, hispeed 700MHz, lpspeed 1200MHz
 # initialize and change owner to system for power saving mode related device nodes
 	chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 	chown system system /sys/devices/system/cpu/cpufreq/interactive/lpspeed_freq
 	chown system system /sys/devices/system/cpu/cpufreq/interactive/lpspeed_enabled
 	chown system system /sys/module/pvrsrvkm/parameters/sgx_freq_restrict
-	# DTS2012032406795 l00210892 20120326 begin
 	chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
 	chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-	# DTS2012032406795 l00210892 20120326 end
 
 	write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 20000
 	write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 20000
 	write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 800000
 	write /sys/devices/system/cpu/cpufreq/interactive/lpspeed_freq 1200000
 	write /sys/devices/system/cpu/cpufreq/interactive/lpspeed_enabled 0
-# /* DTS2012031202529 pengyu 20120312 end >*/
+
 # Boost the CPU for 30 secs during boot
 	write /sys/devices/system/cpu/cpufreq/interactive/boost_timeout 30000000
 	write /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq 1
@@ -89,8 +54,6 @@ on boot
 	write /sys/bus/usb/devices/usb2/power/autosuspend_delay_ms 0
 
 # wi-fi
-#<DTS2011121504131    p00185344   2011/12/15   Merge WiFi-Direct into ICS E2 begin
-#<DTS2011120400489     p00185344		  2011/12/04					add bcm4330 wifi  code to ICS version begin	
     mkdir /data/misc/wifi 0770 wifi wifi
     chown wifi wifi /data/misc/wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -98,29 +61,18 @@ on boot
     chmod 0660 /data/misc/wifi/p2p_supplicant.conf
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
-#DTS2011120400489     p00185344		  2011/12/04					add bcm4330 wifi  code to ICS version end >
-#DTS2011121504131    p00185344   2011/12/15   Merge WiFi-Direct into ICS E2 end >
-
 
 # GPS
 	insmod /system/lib/modules/gps_drv.ko
 
 on fs
-        mkdir /factory 0775 radio radio
+    mkdir /factory 0775 radio radio
 	mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/system /system wait ro
 	setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
-	#DTS2011122804252 z00192785 2011-12-29 begin
 	mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/cust /cust wait ro
-	#DTS2011122804252 z00192785 2011-12-29 end
-        #DTS2012011102409  z00176770 20110112 begin
-        #DTS2012021007060  z00176770 20120210 begin
-        mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/userdata /data wait noatime nosuid nodev mblk_io_submit,data=writeback,commit=15,barrier=0,noauto_da_alloc,discard
-        #DTS2012021007060  z00176770 20120210 end
-        #DTS2012011102409  z00176770 20110112 end
+    mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/userdata /data wait noatime nosuid nodev mblk_io_submit,data=writeback,commit=15,barrier=0,noauto_da_alloc,discard
 	mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/cache /cache wait noatime nosuid nodev nomblk_io_submit
-#/*<start: DTS2011122703394 d00186307 kernel boot time optimize*/
-#	mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/efs /factory wait ro
-#/*<end: DTS2011122703394 d00186307 kernel boot time optimize >*/
+
 	setprop ro.crypto.fuse_sdcard true
 
 # H264 Encoder Profile setting
@@ -142,7 +94,6 @@ on fs
     symlink /vendor/etc/nxp_viva /data/nxp
 
 
-# /* DTS2011081605546 y00185015 Added begin for xgold-ril configuration  */
 # change permissions for modem
     chmod 0660 /dev/xmd-tty0
     chmod 0660 /dev/xmd-tty1
@@ -156,55 +107,37 @@ on fs
     chmod 0660 /dev/xmd-tty9
     chmod 0660 /dev/xmd-tty10
     chmod 0660 /dev/xmd-tty11
-#    chmod 0660 /dev/xmd-tty*
 
     chown radio radio /dev/xmd-tty0
     chown radio radio /dev/xmd-tty1
     chown radio radio /dev/xmd-tty2
     chown radio radio /dev/xmd-tty3
     chown radio radio /dev/xmd-tty4
-# < DTS2012022107419 l00188955 2012-02-21 begin: modify user and group to system
     chown system system /dev/xmd-tty5
-# DTS2012022107419 l00188955 2012-02-21 end >
-# /* DTS2011122007433 l00186420 20111220 begin */
     chown system system /dev/xmd-tty6
-# /* DTS2011122007433 l00186420 20111220 end */
     chown radio radio /dev/xmd-tty7
-#DTS2011120602683 d00185873 2011/12/06 Start
-#    chown radio radio /dev/xmd-tty8
     chown media media /dev/xmd-tty8
-#DTS2011120602683 d00185873 2011/12/06 End
     chown radio radio /dev/xmd-tty9
     chown radio radio /dev/xmd-tty10
     chown radio radio /dev/xmd-tty11
-#    chown radio radio /dev/xmd-tty*
     
-# /* DTS2011122007433 l00186420 20111220 begin */
     chmod 0664 /sys/devices/platform/xmm_boot/state
-# /* DTS2011122007433 l00186420 20111220 end */
     chmod 0660 /sys/devices/platform/xmm_boot/io
     chmod 0660 /sys/devices/platform/xmm_boot/power
     chown radio radio /sys/devices/platform/xmm_boot/state
     chown radio radio /sys/devices/platform/xmm_boot/io
     chown radio radio /sys/devices/platform/xmm_boot/power
-# /* DTS2011081605546 y00185015 Added end for xgold-ril configuration */
-# /* DTS2012022304490 j00174217 20120326 add begin */
     chmod 0660 /sys/devices/platform/xmm_boot/cp_shutdown
     chown radio radio /sys/devices/platform/xmm_boot/cp_shutdown
-# /* DTS2012022304490 j00174217 20120326 add begin */
 
 # change permissions for bq2416x_charger
-     chmod 0660 /sys/bus/i2c/devices/1-006b/enable_charger
-     chown system system /sys/bus/i2c/devices/1-006b/enable_charger
-     chmod 0660 /sys/bus/i2c/devices/1-006b/calling_limit
-     chown system system /sys/bus/i2c/devices/1-006b/calling_limit
+    chmod 0660 /sys/bus/i2c/devices/1-006b/enable_charger
+    chown system system /sys/bus/i2c/devices/1-006b/enable_charger
+    chmod 0660 /sys/bus/i2c/devices/1-006b/calling_limit
+    chown system system /sys/bus/i2c/devices/1-006b/calling_limit
 
-# /* DTS2011081602280 x00186570 20110826 change the permissions for flashless download app */
     chmod 0660 /sys/devices/virtual/usbswitch/usbsw/swstate
-
-#<DTS2011121502991  l00186011 2011/12/15  modify file access mode for Projectmenu begin    
     chown system system /sys/devices/virtual/usbswitch/usbsw/swstate
-# DTS2011121502991  l00186011 2011/12/15  modify file access mode for Projectmenu end>
 
     chmod 0660 /dev/ttyO0
     chown radio radio /dev/ttyO0
@@ -218,7 +151,6 @@ on fs
     chown radio radio /sys/devices/platform/xmm_boot/flashless
     chown radio radio /sys/devices/platform/xmm_boot/hsimode
     chown radio radio /sys/devices/platform/xmm_boot/hsi_drvmode
-# /* DTS2011081602280   x00186570 20110826 change the permissions for flashless download app */
 
 # change permissions for Sensors
     chown system system /sys/bus/i2c/drivers/cma3000_accl/4-001c
@@ -238,35 +170,25 @@ on fs
     chown media media /data/misc/camera/R12_MVEN002_LD2_ND0_IR0_SH0_FL0_SVEN002_DCCID42
     chown media media /data/misc/camera/R8_MVEN002_LD2_ND0_IR0_SH0_FL1_SVEN003_DCCID1042
 
-#DTS2012021007117 w00172421 2012/02/10  modify i2c node authority begin
 # Change permissions on the governor (this is for debug only)
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     chmod 0664 /sys/kernel/debug/pm_debug/enable_off_mode
     chmod 0664 /sys/devices/system/cpu/cpu1/online
-#DTS2012021007117 w00172421 2012/02/10  modify i2c node authority end
     chmod 666 /proc/cmdline
 
-#<DTS2011122002914 j00181309 2011/12/20 modify for btla stack to ics begin
 # change permissions for Bluetooth/FM/GPS
     chmod 0600 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0600 /dev/ttyO1
     chown bluetooth bluetooth /dev/ttyO1
-#DTS2011122002914 j00181309 2011/12/20 modify for btla stack to ics end>
 
-#<DTS2012020802054    j00181309       2012/02/08      bluetooth low power module begin
 # change permissions for btld
     chmod 0644 /proc/bluetooth/sleep/proto
     chown bluetooth bluetooth /proc/bluetooth/sleep/proto
-#DTS2012020802054    j00181309       2012/02/08      bluetooth low power module end
-#DTS2012032901825    z00187939       2012/03/29      bluetooth quickswitch power control modify begin
     chmod 0644 /proc/bluetooth/sleep/clkctrl
     chown bluetooth bluetooth /proc/bluetooth/sleep/clkctrl
-#DTS2012032901825    z00187939       2012/03/29      bluetooth quickswitch power control modify end
-#< DTS2012022307787 c00182898 modify MMI test open nve0 faild add begin >
     chown system system /dev/nve0
     chmod 0660 /dev/nve0
-#< DTS2012022307787 c00182898 modify MMI test open nve0 faild add end >
 
 # change permissions for S3D hardware
     chown system system /sys/devices/platform/omapdss/display0/s3d_enable
@@ -279,14 +201,6 @@ service pvrsrvinit /vendor/bin/pvrsrvinit
 	group root
 	oneshot
 
-
-#<DTS2011120101830     z00185222       2011/12/01                    add bcm4330 bluez code to ICS version begin
-#shared transport user space mgr service for Bluetooth, FM and GPS
-#service uim /system/bin/uim-sysfs
-#	class core
-#	user bluetooth
-#	group bluetooth net_bt_admin
-#DTS2011120101830     z00185222       2011/12/01                    add bcm4330 bluez code to ICS version end >
 
 ###################################################
 # MSHIELD SMC Daemon - component required to store persistent data coming
@@ -310,17 +224,14 @@ service bugreport /system/bin/bugmailer.sh -v
 # create virtual SD card at /mnt/sdcard, based on the /data/media directory
 # daemon will drop to user/group system/media_rw after initializing
 # underlying files in /data/media will be created with user and group media_rw (1023)
-#DTS2012021603135 h58695 begin
+
 service sdcard /system/bin/sdcard /data/share 1023 1023
 	class main
-#DTS2012021603135 h58695 end
 
-#<DTS2011120400489     p00185344		  2011/12/04					add bcm4330 wifi  code to ICS version begin	
-#<DTS2011121504131    p00185344   2011/12/15   Merge WiFi-Direct into ICS E2 begin 
+
 service wpa_supplicant /system/bin/wpa_supplicant \
 	-iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin 
-#DTS2011121504131    p00185344   2011/12/15   Merge WiFi-Direct into ICS E2 end > 
-       #   we will start as root and wpa_supplicant will switch to user wifi
+        #   we will start as root and wpa_supplicant will switch to user wifi
         #   after setting up the capabilities required for WEXT
         #   user wifi
         #   group wifi inet keystore
@@ -387,12 +298,6 @@ service navl_server /system/bin/navd --android_log NAVD  -p3 -nav\"-c/system/etc
 	disabled
 	oneshot
 
-#/*DTS2011120105354 z00192837 20111220 end>*/	
-#DTS2011122002914 j00181309 2011/12/20 delete for btla stack end>
-
-#<DTS2011120101830     z00185222       2011/12/01                    add bcm4330 bluez code to ICS version begin
-#<DTS2011122002914 j00181309 2011/12/20 delete for btla stack begin
-#DTS2012091402534 j00181309 2012.09.14 JellyBean bluetooth BLUEZ stack update. start
 service bcm_hciattach /system/bin/brcm_patchram_plus --enable_hci --baudrate 3000000 --use_baudrate_for_download --patchram /etc/bluetooth/BCM4330B1.hcd --no2bytes --enable_lpm --tosleep=50000 /dev/ttyO1
     user root
     group bluetooth net_bt_admin system
@@ -410,8 +315,6 @@ service hci_dev_down /system/bin/hci_dev_state --dev_down
     group bluetooth system
     disabled
     oneshot
-#DTS2012091402534 j00181309 2012.09.14 JellyBean bluetooth BLUEZ stack update. end
-#DTS2011122002914 j00181309 2011/12/20 delete for btla stack end>
 
 service chip_power_on /system/bin/sh /system/etc/bluetooth/init.bcm.chip_on.sh
     user root
@@ -424,11 +327,7 @@ service chip_power_off /system/bin/sh /system/etc/bluetooth/init.bcm.chip_off.sh
     group system
     disabled
     oneshot
-#DTS2011120101830     z00185222       2011/12/01                    add bcm4330 bluez code to ICS version end >
 
-
-#<DTS2011122002914 j00181309 2011/12/20 add btla stack to ics begin
-#<DTS2012011707420 z00183953 2012/01/18 add btla beta release stack to ics begin
 # dhcp service for pan-nap/pan-u     
 service dhcpcd_brcm-pan /system/bin/dhcpcd -ABKL
 	class main
@@ -440,7 +339,6 @@ service iprenew_brcm-pan /system/bin/dhcpcd -n
 	disabled
 	oneshot
 
-#STOPSHIP: Remove logwrapper and -d option before production
 service bluetoothd /system/bin/logwrapper /system/bin/bluetoothd -d -n
     class main
     socket bluetooth stream 660 bluetooth bluetooth
@@ -449,12 +347,9 @@ service bluetoothd /system/bin/logwrapper /system/bin/bluetoothd -d -n
 # let bluetoothd drop uid to bluetooth with the right linux capabilities
     group bluetooth net_bt_admin misc
     disabled
-#DTS2012011707420 z00183953 2012/01/18 add btla beta release stack to ics end>
-#DTS2011122002914 j00181309 2011/12/20 add btla stack to ics end>
 
 service kbluetoothd /system/bin/sh /system/etc/bluetooth/kill-bluetoothd.sh
 	user root
 	group system bluetooth
 	disabled
 	oneshot
-#DTS2012010703632   z00185222     2012/01/07    enable FM after BTLA porting ok end >
