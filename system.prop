@@ -5,3 +5,5 @@ ro.sf.lcd_density=240
 
 # default use UMS
 persist.sys.usb.config=mass_storage,adb
+
+ro.config.hw_power_saving=true
